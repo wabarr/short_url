@@ -3,7 +3,7 @@ from datetime import datetime
 
 class Link(models.Model):
     target_url = models.URLField(blank=False)
-    short_url = models.SlugField(blank=False)
+    short_url = models.SlugField(blank=False, unique=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
