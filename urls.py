@@ -1,4 +1,4 @@
-from short_url.views import try_short_url, CreateLink, LinkList
+from short_url.views import try_short_url, CreateLink, LinkList, login_view
 
 """
 URL configuration for short_url project.
@@ -18,10 +18,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from short_url.admin import shortURLAdminSite
+
 
 urlpatterns = [
-    path("go/<slug:short_url>", try_short_url),
-    path('admin/', admin.site.urls),
+    path("<slug:short_url>", try_short_url),
+    path('admin/', shortURLAdminSite.urls),
     path("links/", LinkList.as_view()),
+    path("accounts/login/", login_view, name="login"),
     path('', CreateLink.as_view())
 ]
