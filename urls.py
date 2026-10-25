@@ -22,9 +22,9 @@ from short_url.admin import shortURLAdminSite
 
 
 urlpatterns = [
-    path("<slug:short_url>", try_short_url),
     path('admin/', shortURLAdminSite.urls),
     path("links/", LinkList.as_view()),
     path("accounts/login/", login_view, name="login"),
+    path("<slug:short_url>", try_short_url),
     path('', CreateLink.as_view())
 ]

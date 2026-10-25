@@ -3,11 +3,13 @@ from short_url.models import Click, Link
 from django.core.exceptions import ObjectDoesNotExist
 from ipware import get_client_ip
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
+#note we need the method_decorator to use login_not_required decorator with class based views
+from django.utils.decorators import method_decorator
 
 class CreateLink(CreateView):
     model = Link
@@ -19,6 +21,7 @@ class CreateLink(CreateView):
 class LinkList(ListView):
     queryset = Link.objects.all().order_by("-created")
 
+
 @login_not_required
 def try_short_url(request, short_url):
     #this is the function that actually does the redirect
@@ -29,7 +32,7 @@ def try_short_url(request, short_url):
         return HttpResponseRedirect(link.target_url)
 
     except ObjectDoesNotExist:
-        return HttpResponseRedirect("https://wabarr.com")
+        return render(request, 'short_url/notfound.html', context={'short_url': short_url})
 
 #apply directly to the function based login view
 @login_not_required
