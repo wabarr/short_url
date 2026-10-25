@@ -19,7 +19,9 @@ class CreateLink(CreateView):
 class LinkList(ListView):
     queryset = Link.objects.all().order_by("-created")
 
+@login_not_required
 def try_short_url(request, short_url):
+    #this is the function that actually does the redirect
     try:
         link = Link.objects.get(short_url=short_url)
         client_ip, is_routable = get_client_ip(request)
