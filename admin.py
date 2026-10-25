@@ -9,7 +9,8 @@ shortURLAdminSite = ShortURLAdminSite(name='Short URL Admin')
 
 class ClickAdmin(admin.ModelAdmin):
 
-    fields = ["link_clicked", "ip", "ip_routable"]
+    fields = ["link_clicked", "ip", "ip_routable","timestamp"]
+    list_display = ["link_clicked", "ip", "ip_routable", "timestamp"]
 
 class LinkAdmin(admin.ModelAdmin):
 
