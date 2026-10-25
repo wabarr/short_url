@@ -11,6 +11,7 @@ class ClickAdmin(admin.ModelAdmin):
 
     fields = ["link_clicked", "ip", "ip_routable","timestamp"]
     list_display = ["link_clicked", "ip", "ip_routable", "timestamp"]
+    readonly_fields = ["timestamp"]
 
 class LinkAdmin(admin.ModelAdmin):
 
