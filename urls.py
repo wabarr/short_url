@@ -18,11 +18,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from short_url.admin import shortURLAdminSite
+from short_url.admin import shortURLAdminSite, admin
 
 
 urlpatterns = [
     path('admin/', shortURLAdminSite.urls),
+    path('su/',admin.site.urls),
     path("links/", LinkList.as_view()),
     path("accounts/login/", login_view, name="login"),
     path("<slug:short_url>", try_short_url),
