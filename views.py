@@ -8,18 +8,19 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
-#note we need the method_decorator to use login_not_required decorator with class based views
-from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-class CreateLink(CreateView):
+
+class CreateLink(PermissionRequiredMixin, CreateView):
     model = Link
     fields = ['short_url', 'target_url']
     success_url = '/links/'
+    permission_required = 'short_url.add_link'
 
 
-
-class LinkList(ListView):
+class LinkList(PermissionRequiredMixin, ListView):
     queryset = Link.objects.all().order_by("-created")
+    permission_required = 'short_url.view_link'
 
 
 @login_not_required
