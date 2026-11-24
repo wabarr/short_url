@@ -20,7 +20,7 @@ class CreateLink(PermissionRequiredMixin, CreateView):
 
 class LinkList(PermissionRequiredMixin, ListView):
     queryset = Link.objects.all().order_by("-created")
-    permission_required = 'short_url.view_link'
+    permission_required = 'short_url.add_link'
 
 
 @login_not_required
